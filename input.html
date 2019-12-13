@@ -1,0 +1,71 @@
+</head>
+<body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
+
+<div>
+
+    <div>
+      <h1>Address Input for Baltimore Neighborhood and Quadrant</h1>
+    </div>
+
+    <div>
+      <label for="name">Full Address (Street City State Zip):</label>
+      <input type="text" id="full_address" name="full_address" required size="150">
+    </div>
+
+<hr></hr>
+
+    <div>
+      <label for="hood">Neighborhood</label>
+      <input type="text" id="hood" name="hood" required size="50">
+      <label for="quad">Quadrant</label>
+      <input type="text" id="quad" name="quad" required size="50">
+    </div>
+
+    <div>
+      <label for="lon">Longitude</label>
+      <input type="text" id="lon" name="lon" required size="50">
+      <label for="lat">Latitude</label>
+      <input type="text" id="lat" name="lat" required size="50">
+    </div>
+
+<hr></hr>
+
+    <div>
+       <button onclick="doWork();">Submit</button>
+       <button onclick="resetDivs();">Reset</button>
+    </div>
+
+
+
+
+<div>
+
+
+<script>
+
+function resetDivs() {
+document.getElementById("lat").value='';
+document.getElementById("lon").value='';
+document.getElementById("quad").value='';
+document.getElementById("hood").value='';
+};
+
+function doWork() {
+var arr = {'fn': document.getElementById("full_address").value,};
+$.post( "/receiver", arr, function(response) {var eff=response;
+var dat = eff.split(',');
+console.log(dat);
+document.getElementById("lat").value=dat[3];
+document.getElementById("lon").value=dat[4];
+document.getElementById("quad").value=dat[2];
+document.getElementById("hood").value=dat[1];
+});
+};
+
+</script>
+
+</body>
+</html>
